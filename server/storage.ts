@@ -100,8 +100,13 @@ export class MemStorage implements IStorage {
   async createAssessment(insertAssessment: InsertAssessment): Promise<Assessment> {
     const id = this.currentAssessmentId++;
     const assessment: Assessment = {
-      ...insertAssessment,
       id,
+      sessionId: insertAssessment.sessionId,
+      symptoms: insertAssessment.symptoms,
+      additionalInfo: insertAssessment.additionalInfo || null,
+      riskLevel: insertAssessment.riskLevel,
+      recommendations: insertAssessment.recommendations,
+      aiAnalysis: insertAssessment.aiAnalysis,
       createdAt: new Date(),
     };
     this.assessments.set(id, assessment);
@@ -125,8 +130,11 @@ export class MemStorage implements IStorage {
   async createSymptom(insertSymptom: InsertSymptom): Promise<Symptom> {
     const id = this.currentSymptomId++;
     const symptom: Symptom = {
-      ...insertSymptom,
       id,
+      name: insertSymptom.name,
+      description: insertSymptom.description,
+      category: insertSymptom.category,
+      severityWeight: insertSymptom.severityWeight || 1,
     };
     this.symptoms.set(id, symptom);
     return symptom;
