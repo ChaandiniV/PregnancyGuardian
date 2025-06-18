@@ -102,6 +102,10 @@ GraviLog is a comprehensive web application designed to provide AI-powered pregn
 ```
 Changelog:
 - June 18, 2025. Initial setup
+- June 18, 2025. Successfully integrated Hugging Face-based RAG system with fallback assessment
+- June 18, 2025. Implemented rule-based medical assessment without API dependencies
+- June 18, 2025. Enhanced system with comprehensive pregnancy knowledge base
+- June 18, 2025. Added multi-tier fallback: HF Service → Rule-based → Safety fallback
 ```
 
 ## User Preferences
