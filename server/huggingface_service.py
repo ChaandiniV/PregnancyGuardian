@@ -138,11 +138,10 @@ class PregnancyAssessmentService:
                     matched_moderate_risk.append(moderate_risk)
                     break
         
-        # Check for low risk symptoms
+        # Check for low risk symptoms - don't increase risk score for normal symptoms
         for symptom in normalized_symptoms:
             for low_risk in self.knowledge_base["low_risk_symptoms"]:
                 if self._symptom_matches(symptom, low_risk.lower()):
-                    risk_score += 1
                     matched_low_risk.append(low_risk)
                     break
         
@@ -238,23 +237,27 @@ class PregnancyAssessmentService:
             risk_analysis = self._calculate_symptom_risk_score(symptoms)
             risk_score = risk_analysis["risk_score"]
             
-            # Determine base risk level with more balanced thresholds
-            if risk_score >= 6 or risk_analysis["dangerous_combinations"]:
+            # Determine base risk level with proper symptom-based assessment
+            if risk_analysis["dangerous_combinations"] or (risk_analysis["matched_high_risk"] and risk_score >= 6):
                 base_risk = "high"
                 urgency = "immediate"
                 confidence = 0.85
-            elif risk_score >= 4 or (risk_analysis["matched_high_risk"] and risk_score >= 3):
+            elif risk_analysis["matched_high_risk"] and risk_score >= 3:
                 base_risk = "high"
                 urgency = "within_24_hours"
                 confidence = 0.80
-            elif risk_score >= 2 or risk_analysis["matched_moderate_risk"]:
+            elif risk_analysis["matched_moderate_risk"] or (risk_score >= 2 and not risk_analysis["matched_low_risk"]):
                 base_risk = "moderate"
                 urgency = "within_week"
                 confidence = 0.75
-            else:
+            elif risk_analysis["matched_low_risk"] and risk_score == 0:
                 base_risk = "low"
                 urgency = "routine"
                 confidence = 0.70
+            else:
+                base_risk = "low"
+                urgency = "routine"
+                confidence = 0.65
             
             # Adjust for gestational week
             final_risk = self._adjust_risk_for_gestational_week(base_risk, gestational_week)
