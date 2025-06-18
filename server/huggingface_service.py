@@ -160,14 +160,28 @@ class PregnancyAssessmentService:
         }
     
     def _symptom_matches(self, user_symptom: str, knowledge_symptom: str) -> bool:
-        """Check if user symptom matches knowledge base symptom"""
-        # Simple keyword matching
-        user_words = set(user_symptom.split())
-        knowledge_words = set(knowledge_symptom.split())
+        """Check if user symptom matches knowledge base symptom with severity awareness"""
+        user_lower = user_symptom.lower().strip()
+        knowledge_lower = knowledge_symptom.lower().strip()
         
-        # Check for overlap
+        # Handle severity qualifiers - severe symptoms shouldn't match mild categories
+        if "severe" in knowledge_lower and "severe" not in user_lower and "heavy" not in user_lower:
+            return False
+        if "mild" in knowledge_lower and ("severe" in user_lower or "heavy" in user_lower):
+            return False
+            
+        # Extract core symptom terms without severity modifiers
+        user_clean = user_lower.replace("severe", "").replace("mild", "").replace("heavy", "").strip()
+        knowledge_clean = knowledge_lower.replace("severe", "").replace("mild", "").replace("heavy", "").strip()
+        
+        user_words = set(user_clean.split())
+        knowledge_words = set(knowledge_clean.split())
+        
+        # Check for meaningful overlap (at least 1 significant word match)
         overlap = user_words.intersection(knowledge_words)
-        return len(overlap) > 0 or user_symptom in knowledge_symptom or knowledge_symptom in user_symptom
+        return (len(overlap) > 0 and 
+                not all(word in ["and", "or", "the", "a", "an", "in", "on", "at", "with"] for word in overlap)) or \
+               user_clean in knowledge_clean or knowledge_clean in user_clean
     
     def _check_symptom_combinations(self, symptoms: List[str]) -> List[str]:
         """Check for dangerous symptom combinations"""
@@ -224,12 +238,12 @@ class PregnancyAssessmentService:
             risk_analysis = self._calculate_symptom_risk_score(symptoms)
             risk_score = risk_analysis["risk_score"]
             
-            # Determine base risk level
-            if risk_score >= 5 or risk_analysis["dangerous_combinations"]:
+            # Determine base risk level with more balanced thresholds
+            if risk_score >= 6 or risk_analysis["dangerous_combinations"]:
                 base_risk = "high"
                 urgency = "immediate"
                 confidence = 0.85
-            elif risk_score >= 3 or risk_analysis["matched_high_risk"]:
+            elif risk_score >= 4 or (risk_analysis["matched_high_risk"] and risk_score >= 3):
                 base_risk = "high"
                 urgency = "within_24_hours"
                 confidence = 0.80
