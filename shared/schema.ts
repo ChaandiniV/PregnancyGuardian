@@ -6,7 +6,7 @@ export const assessments = pgTable("assessments", {
   id: serial("id").primaryKey(),
   sessionId: text("session_id").notNull(),
   symptoms: jsonb("symptoms").notNull().$type<string[]>(),
-  additionalInfo: jsonb("additional_info").$type<Record<string, any>>(),
+  additionalInfo: jsonb("additional_info").$type<Record<string, any> | null>(),
   riskLevel: text("risk_level").notNull(), // 'low', 'moderate', 'high'
   recommendations: jsonb("recommendations").notNull().$type<string[]>(),
   aiAnalysis: text("ai_analysis").notNull(),
@@ -24,6 +24,10 @@ export const symptoms = pgTable("symptoms", {
 export const insertAssessmentSchema = createInsertSchema(assessments).omit({
   id: true,
   createdAt: true,
+}).extend({
+  symptoms: z.array(z.string()),
+  recommendations: z.array(z.string()),
+  additionalInfo: z.record(z.any()).optional().nullable(),
 });
 
 export const insertSymptomSchema = createInsertSchema(symptoms).omit({

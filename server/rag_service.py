@@ -72,8 +72,7 @@ class PregnancyRAGService:
             )
             
             self.query_engine = RetrieverQueryEngine(
-                retriever=retriever,
-                postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.7)]
+                retriever=retriever
             )
             
             logger.info("RAG knowledge base initialized successfully")
@@ -112,8 +111,11 @@ class PregnancyRAGService:
             """
             
             # Retrieve relevant medical information
-            rag_response = self.query_engine.query(rag_query)
-            retrieved_context = str(rag_response)
+            if self.query_engine:
+                rag_response = self.query_engine.query(rag_query)
+                retrieved_context = str(rag_response)
+            else:
+                retrieved_context = "Knowledge base not available"
             
             # Create detailed assessment prompt
             assessment_prompt = f"""

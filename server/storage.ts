@@ -102,10 +102,10 @@ export class MemStorage implements IStorage {
     const assessment: Assessment = {
       id,
       sessionId: insertAssessment.sessionId,
-      symptoms: insertAssessment.symptoms,
-      additionalInfo: insertAssessment.additionalInfo || null,
+      symptoms: insertAssessment.symptoms as string[],
+      additionalInfo: insertAssessment.additionalInfo ?? null,
       riskLevel: insertAssessment.riskLevel,
-      recommendations: insertAssessment.recommendations,
+      recommendations: insertAssessment.recommendations as string[],
       aiAnalysis: insertAssessment.aiAnalysis,
       createdAt: new Date(),
     };

@@ -38,13 +38,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const assessment = await storage.createAssessment({
         sessionId,
         symptoms: validatedData.symptoms,
-        additionalInfo: {
+        additionalInfo: validatedData.gestationalWeek || validatedData.previousComplications || validatedData.additionalSymptoms ? {
           gestationalWeek: validatedData.gestationalWeek,
           previousComplications: validatedData.previousComplications,
           additionalSymptoms: validatedData.additionalSymptoms,
           confidence: riskAssessment.confidence,
           urgency: riskAssessment.urgency
-        },
+        } : null,
         riskLevel: riskAssessment.riskLevel,
         recommendations: riskAssessment.recommendations,
         aiAnalysis: riskAssessment.reasoning
