@@ -19,6 +19,8 @@ GraviLog is a comprehensive web application designed to provide AI-powered pregn
 - **Language**: TypeScript with ES modules
 - **API Design**: RESTful endpoints for symptom management and assessment processing
 - **Session Management**: In-memory storage for development (designed for database scaling)
+- **RAG Service**: Python FastAPI service with LlamaIndex for enhanced medical assessment
+- **AI Integration**: OpenAI GPT-4o with retrieval-augmented generation for medical analysis
 
 ### Data Storage
 - **Database**: PostgreSQL with Drizzle ORM
@@ -32,9 +34,11 @@ GraviLog is a comprehensive web application designed to provide AI-powered pregn
 
 ### AI Integration
 - **Model**: OpenAI GPT-4o for medical risk assessment
-- **Service**: Dedicated OpenAI service module handling risk evaluation
+- **RAG Architecture**: LlamaIndex for retrieval-augmented generation
+- **Knowledge Base**: Comprehensive pregnancy medical knowledge base with WHO guidelines
+- **Service**: Python FastAPI RAG service for enhanced medical analysis
 - **Risk Levels**: Four-tier system (low, moderate, high) with urgency indicators
-- **Output**: Structured JSON responses with confidence scores and recommendations
+- **Output**: Evidence-based structured JSON responses with confidence scores and recommendations
 
 ### Assessment Flow
 1. **Symptom Selection**: Multi-step form with predefined symptom catalog
