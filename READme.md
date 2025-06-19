@@ -92,7 +92,7 @@ Press the Run Button.
 
 The application is deployed and publicly accessible at:
 
-**Live URL**: [https://your-replit-link.repl.co](https://your-replit-link.repl.co)
+**Temporary  URL**: https://036cf12a-334c-477c-a8ed-3d89209e2f1d-00-tnfcfeuwq4pn.pike.replit.dev/
 
 ---
 
