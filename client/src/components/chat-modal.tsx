@@ -294,7 +294,7 @@ export default function ChatModal({ open, onOpenChange }: ChatModalProps) {
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
                     <Badge className={`${getRiskColor(assessmentResult.riskLevel)} border`}>
-                      {getRiskEmoji(assessmentResult.riskLevel)} {assessmentResult.riskLevel.toUpperCase()} RISK
+                      {getRiskEmoji(assessmentResult.riskLevel)} {assessmentResult.riskLevel?.toUpperCase() || 'UNKNOWN'} RISK
                     </Badge>
                     <Badge className={`${getUrgencyColor(assessmentResult.urgency)} border`}>
                       {assessmentResult.urgency?.replace(/_/g, ' ').toUpperCase() || 'ROUTINE'}
