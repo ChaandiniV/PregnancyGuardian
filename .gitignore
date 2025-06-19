@@ -1,6 +1,52 @@
-node_modules
-dist
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
 .DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Cache
+.cache/
+.parcel-cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Replit
+.replit
+.upm/
+
+# Database
+*.db
+*.sqlite
+
+# Temporary files
+*.tmp
+*.temp

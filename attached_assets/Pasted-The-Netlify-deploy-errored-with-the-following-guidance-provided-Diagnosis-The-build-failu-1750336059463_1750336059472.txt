@@ -1,0 +1,39 @@
+The Netlify deploy errored, with the following guidance provided:
+
+**Diagnosis:**
+The build failure is caused by an issue with installing Python dependencies during the build process.
+
+**Solution:**
+The error indicates a problem with the Python version provided (`python-3.11.8`), as it states "python-build: definition not found: python-3.11.8." To resolve this issue, consider the following steps:
+1. Verify that the Python version `3.11.8` is correctly specified and supported in the project's configuration files.
+2. If `python-3.11.8` is required, ensure it is added to the project's configuration or dependencies.
+3. If the Python version needs to be changed, update the version to a valid one in the project files.
+
+It seems there might be a configuration issue with Python versions or dependencies, which is causing the build failure.
+
+The relevant error logs are:
+
+Line 1: git clone --filter=blob:none https://github.com/ChaandiniV/PregnancyGuardian
+Line 2: Preparing Git Reference refs/heads/main
+Line 3: Starting to install dependencies
+Line 4: [2mmise[0m [34mpython[0m@python-3.11.8
+Line 5:  install
+Line 6: [33mmise[0m [33mWARN[0m  no precompiled python found for python-3.11.8
+Line 7: , force mise to use a precompiled version with `mise settings set python.compile false`
+Line 8: [2mmise[0m [34mpython[0m@python-3.11.8
+Line 9:  python-build
+Line 10: python-build: definition not found: python-3.11.8
+Line 11: [31mmise[0m [31mERROR[0m ~/.cache/mise/python/pyenv/plugins/python-build/bin/python-build failed
+Line 12: python-build: definition not found: python-3.11.8
+Line 13: [31mmise[0m [31mERROR[0m failed to install core:python@python-3.11.8
+Line 14: [31mmise[0m [31mERROR[0m ~/.cache/mise/python/pyenv/plugins/python-build/bin/python-build exited with non-zero status: exit 
+Line 15: [31mmise[0m [31mERROR[0m [2mRun with --verbose or MISE_VERBOSE=1 for more information[0m
+Line 16: Error setting python version from 3.13
+Line 17: Failing build: Failed to install dependencies
+Line 18: Finished processing build request in 3.232s
+Line 19: build-image version: c7d789db33033d118ad9bb27d4968225e0f4a584 (noble)
+Line 20: Failed to fetch cache, continuing with build
+Line 21: Starting to prepare the repo for build
+Line 22: Fetching cached dependencies
+Line 23: buildbot version: c7d789db33033d118ad9bb27d4968225e0f4a584
+Line 24: Failed during stage 'Install dependencies': dependency_installation script returned non-zero exit code: 1
