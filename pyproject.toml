@@ -13,6 +13,10 @@ dependencies = [
     "uvicorn>=0.34.3",
 ]
 
+[tool.poetry]
+package-mode = false
+
+
 [[tool.uv.index]]
 explicit = true
 name = "pytorch-cpu"
