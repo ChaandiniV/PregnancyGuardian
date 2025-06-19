@@ -1,15 +1,22 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ClipboardList, UserCheck, Clock, Zap } from "lucide-react";
+import { ClipboardList, UserCheck, Clock, Zap, Bot } from "lucide-react";
 import { useLocation } from "wouter";
 import EmergencySection from "@/components/emergency-section";
 import Disclaimer from "@/components/disclaimer";
+import ChatModal from "@/components/chat-modal";
 
 export default function Home() {
   const [, setLocation] = useLocation();
+  const [chatModalOpen, setChatModalOpen] = useState(false);
 
   const handleStartAssessment = () => {
     setLocation("/assessment");
+  };
+
+  const handleChatWithAI = () => {
+    setChatModalOpen(true);
   };
 
   return (
@@ -43,14 +50,25 @@ export default function Home() {
               </div>
             </div>
 
-            <Button 
-              onClick={handleStartAssessment}
-              className="bg-medical-blue text-white hover:bg-blue-700 transition-colors shadow-lg text-lg px-8 py-4"
-              size="lg"
-            >
-              <ClipboardList className="mr-3 h-5 w-5" />
-              Start Health Assessment
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                onClick={handleStartAssessment}
+                className="bg-medical-blue text-white hover:bg-blue-700 transition-colors shadow-lg text-lg px-8 py-4"
+                size="lg"
+              >
+                <ClipboardList className="mr-3 h-5 w-5" />
+                Start Assessment
+              </Button>
+              <Button 
+                onClick={handleChatWithAI}
+                variant="outline"
+                className="border-medical-blue text-medical-blue hover:bg-medical-blue hover:text-white transition-colors shadow-lg text-lg px-8 py-4"
+                size="lg"
+              >
+                <Bot className="mr-3 h-5 w-5" />
+                Chat with Dr. AI
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -123,6 +141,12 @@ export default function Home() {
 
       {/* Disclaimer */}
       <Disclaimer />
+
+      {/* Chat Modal */}
+      <ChatModal 
+        open={chatModalOpen} 
+        onOpenChange={setChatModalOpen} 
+      />
     </div>
   );
 }
