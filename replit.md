@@ -106,6 +106,7 @@ Changelog:
 - June 18, 2025. Implemented rule-based medical assessment without API dependencies
 - June 18, 2025. Enhanced system with comprehensive pregnancy knowledge base
 - June 18, 2025. Added multi-tier fallback: HF Service → Rule-based → Safety fallback
+- June 18, 2025. Added color-coded risk indicators: Red (high), Yellow (moderate), Green (low)
 ```
 
 ## User Preferences
