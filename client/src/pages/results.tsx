@@ -20,9 +20,29 @@ export default function Results({ params }: ResultsProps) {
   const { toast } = useToast();
   const assessmentId = parseInt(params.id);
 
+  // Try to get assessment from sessionStorage first
+  const getStoredAssessment = (): AssessmentResponse | null => {
+    try {
+      const stored = sessionStorage.getItem('assessmentResult');
+      if (stored) {
+        const data = JSON.parse(stored);
+        // Verify it matches the current assessment ID
+        if (data.assessmentId === assessmentId) {
+          return data;
+        }
+      }
+    } catch (error) {
+      console.error('Error parsing stored assessment:', error);
+    }
+    return null;
+  };
+
+  const storedAssessment = getStoredAssessment();
+  
   const { data: assessment, isLoading, error } = useQuery<AssessmentResponse>({
     queryKey: [`/api/assessments/${assessmentId}`],
-    enabled: !isNaN(assessmentId),
+    enabled: !isNaN(assessmentId) && !storedAssessment,
+    initialData: storedAssessment || undefined,
   });
 
   const handleRetakeAssessment = () => {

@@ -53,6 +53,8 @@ export default function Assessment() {
       return response.json() as Promise<AssessmentResponse>;
     },
     onSuccess: (data) => {
+      // Store assessment result temporarily in sessionStorage
+      sessionStorage.setItem('assessmentResult', JSON.stringify(data));
       toast({
         title: "Assessment Complete",
         description: "Your risk assessment has been generated successfully.",

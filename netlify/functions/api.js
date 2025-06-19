@@ -135,6 +135,19 @@ app.post('/api/assessments', async (req, res) => {
   }
 });
 
+// Get assessment by ID endpoint
+app.get('/api/assessments/:id', (req, res) => {
+  const assessmentId = parseInt(req.params.id);
+  
+  if (isNaN(assessmentId)) {
+    return res.status(400).json({ error: 'Invalid assessment ID' });
+  }
+  
+  // In a real app, you'd fetch from database
+  // For now, return a not found error since we don't persist assessments
+  res.status(404).json({ error: 'Assessment not found' });
+});
+
 // Symptoms endpoint
 app.get('/api/symptoms', (req, res) => {
   const symptoms = [
