@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Bot, User, Send, Loader2 } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
@@ -124,7 +124,7 @@ export default function ChatModal({ open, onOpenChange }: ChatModalProps) {
   };
 
   const processAssessment = (answers: string[]) => {
-    // Convert answers to symptoms list
+    // Convert answers to symptoms list with severity assessment
     const symptoms: string[] = [];
     
     answers.forEach((answer, index) => {
@@ -133,27 +133,58 @@ export default function ChatModal({ open, onOpenChange }: ChatModalProps) {
       switch (index) {
         case 0: // Bleeding or discharge
           if (lowerAnswer.includes('yes') || lowerAnswer.includes('bleeding') || lowerAnswer.includes('discharge')) {
-            symptoms.push('Unusual bleeding', 'Abnormal discharge');
+            if (lowerAnswer.includes('heavy') || lowerAnswer.includes('severe') || lowerAnswer.includes('lot')) {
+              symptoms.push('Heavy bleeding');
+            } else {
+              symptoms.push('Light bleeding or spotting');
+            }
           }
           break;
         case 1: // Headaches, vision, swelling
-          if (lowerAnswer.includes('yes') || lowerAnswer.includes('headache') || lowerAnswer.includes('blurry') || lowerAnswer.includes('swelling')) {
-            symptoms.push('Severe headaches', 'Vision changes', 'Swelling');
+          if (lowerAnswer.includes('headache')) {
+            if (lowerAnswer.includes('mild') || lowerAnswer.includes('slight') || lowerAnswer.includes('little')) {
+              symptoms.push('Mild headaches');
+            } else if (lowerAnswer.includes('severe') || lowerAnswer.includes('intense') || lowerAnswer.includes('bad')) {
+              symptoms.push('Severe headaches');
+            } else {
+              symptoms.push('Headaches');
+            }
+          }
+          if (lowerAnswer.includes('blurry') || lowerAnswer.includes('vision') || lowerAnswer.includes('see')) {
+            symptoms.push('Vision changes');
+          }
+          if (lowerAnswer.includes('swelling') || lowerAnswer.includes('swollen')) {
+            if (lowerAnswer.includes('severe') || lowerAnswer.includes('sudden') || lowerAnswer.includes('extreme')) {
+              symptoms.push('Severe swelling');
+            } else {
+              symptoms.push('Mild swelling');
+            }
           }
           break;
         case 2: // Baby movement
-          if (lowerAnswer.includes('less') || lowerAnswer.includes('decreased') || lowerAnswer.includes('not') || lowerAnswer.includes('reduced')) {
+          if (lowerAnswer.includes('less') || lowerAnswer.includes('decreased') || lowerAnswer.includes('not') || lowerAnswer.includes('reduced') || lowerAnswer.includes('stopped')) {
             symptoms.push('Decreased fetal movement');
+          } else if (lowerAnswer.includes('same') || lowerAnswer.includes('normal') || lowerAnswer.includes('fine')) {
+            // Normal movement - no symptom added
           }
           break;
         case 3: // Fever or discharge
-          if (lowerAnswer.includes('yes') || lowerAnswer.includes('fever') || lowerAnswer.includes('foul')) {
-            symptoms.push('Fever', 'Foul-smelling discharge');
+          if (lowerAnswer.includes('yes') || lowerAnswer.includes('fever') || lowerAnswer.includes('hot') || lowerAnswer.includes('temperature')) {
+            symptoms.push('Fever');
+          }
+          if (lowerAnswer.includes('foul') || lowerAnswer.includes('smell') || lowerAnswer.includes('odor')) {
+            symptoms.push('Foul-smelling discharge');
           }
           break;
         case 4: // Pelvic pain
-          if (lowerAnswer.includes('yes') || lowerAnswer.includes('pain') || lowerAnswer.includes('pressure')) {
-            symptoms.push('Pelvic pain', 'Lower back pain');
+          if (lowerAnswer.includes('pain') || lowerAnswer.includes('pressure')) {
+            if (lowerAnswer.includes('mild') || lowerAnswer.includes('slight') || lowerAnswer.includes('little')) {
+              symptoms.push('Mild back pain');
+            } else if (lowerAnswer.includes('severe') || lowerAnswer.includes('intense') || lowerAnswer.includes('sharp')) {
+              symptoms.push('Severe pelvic pain');
+            } else {
+              symptoms.push('Back pain');
+            }
           }
           break;
       }
@@ -222,6 +253,9 @@ export default function ChatModal({ open, onOpenChange }: ChatModalProps) {
             <Bot className="h-5 w-5 text-medical-blue" />
             Chat with Dr. AI
           </DialogTitle>
+          <DialogDescription>
+            Interactive health assessment through conversation with your virtual healthcare assistant.
+          </DialogDescription>
         </DialogHeader>
         
         <div className="flex-1 overflow-hidden flex flex-col">
@@ -263,7 +297,7 @@ export default function ChatModal({ open, onOpenChange }: ChatModalProps) {
                       {getRiskEmoji(assessmentResult.riskLevel)} {assessmentResult.riskLevel.toUpperCase()} RISK
                     </Badge>
                     <Badge className={`${getUrgencyColor(assessmentResult.urgency)} border`}>
-                      {assessmentResult.urgency.replace('_', ' ').toUpperCase()}
+                      {assessmentResult.urgency?.replace(/_/g, ' ').toUpperCase() || 'ROUTINE'}
                     </Badge>
                   </div>
                   
