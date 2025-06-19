@@ -1,119 +1,208 @@
-# GraviLog: Pregnancy Risk Assessment Assistant
+# Pregnancy Health Risk Assessment App
 
-## Overview
+An AI-powered web application that provides comprehensive pregnancy health risk assessments based on symptoms, gestational week, and medical history. The app evaluates user-reported symptoms and provides medically-informed recommendations with appropriate urgency levels.
 
-GraviLog is a web-based AI assistant designed to help expectant mothers assess pregnancy-related health risks. It offers two modes of interaction — a structured form and a proactive conversational assistant — both of which analyze symptom data against a medical knowledge base using a Retrieval-Augmented Generation (RAG) pipeline powered by LlamaIndex and a Hugging Face language model.
+## 🚀 Features
 
-This project was built as part of a task to redefine pregnancy care through accessible, intelligent, and proactive health risk analysis.
+- **Comprehensive Symptom Assessment**: 30+ medically categorized pregnancy symptoms
+- **Risk Stratification**: Emergency, high, moderate, and low risk classifications
+- **Gestational Week Considerations**: Tailored recommendations based on pregnancy stage
+- **Medical Recommendations**: Evidence-based guidance for each risk level
+- **Responsive Design**: Mobile-first design with Tailwind CSS
+- **Emergency Features**: Quick access to emergency contacts and disclaimers
+- **Interactive Chat**: Optional conversational interface for symptom reporting
 
----
+## 🛠️ Technology Stack
 
-## Features
+### Frontend
+- **React 18** with TypeScript
+- **Vite** for fast development and building
+- **Tailwind CSS** for styling
+- **Radix UI** components for accessibility
+- **React Hook Form** with Zod validation
+- **TanStack Query** for data fetching
+- **Wouter** for routing
 
-- **Form-Based Assessment**: A structured flow where users can manually input symptoms and receive immediate risk feedback.
-- **Proactive Chatbot (Dr. AI)**: A conversational interface that asks five sequential health-related questions before providing a risk assessment.
-- **Risk Levels**: Low, Medium, or High — clearly presented with recommendations.
-- **RAG Integration**: Utilizes LlamaIndex and a Hugging Face model (Zephyr) to retrieve and reason over a curated medical knowledge base.
-- **Deployed Interface**: Hosted on Replit and accessible via a public URL.
-- **No External API Dependence**: All AI inference runs locally or via Hugging Face models, with fallback to rule-based logic if needed.
+### Backend
+- **Node.js** with Express
+- **TypeScript** for type safety
+- **Drizzle ORM** for database operations
+- **Zod** for request validation
+- **In-memory storage** (configurable for PostgreSQL)
 
----
+### Deployment
+- **Netlify Functions** for serverless backend
+- **Vercel**, **Railway**, **Render** configurations included
+- **Docker** support for containerized deployment
 
-## Technical Stack
+## 📋 Prerequisites
 
-- **Frontend**: React, Tailwind CSS
-- **Backend**: Python, FastAPI
-- **RAG System**: LlamaIndex + Hugging Face Zephyr model
-- **Hosting**: Replit (client and server running together)
-- **Knowledge Base**: Custom dataset built from WHO guidelines and clinical literature
+- **Node.js** 18+ and npm
+- **Git** for version control
+- Modern web browser
 
----
+## 🏃‍♂️ Quick Start
 
-## System Architecture
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/pregnancy-health-assessment.git
+cd pregnancy-health-assessment
+```
 
-1. **User Input (Form or Chatbot)** → 
-2. **Symptom Collection** → 
-3. **Request Sent to `/api/assessments`** → 
-4. **Backend Pipeline**:
-   - Query RAG engine (LlamaIndex + HF model)
-   - Retrieve relevant medical facts
-   - Classify risk as Low / Medium / High
-   - Return risk level, urgency, and recommendation
-5. **Result Rendered** with clear explanation and visual indicator
-
----
-
-## Example Interaction (Chatbot)
-
-**Dr. AI Asks:**
-- Are you currently experiencing any unusual bleeding or discharge?
-- Do you have any persistent headaches, blurry vision, or swelling?
-- How has your baby's movement been today compared to yesterday?
-- Have you had a fever or noticed any foul-smelling discharge?
-- Are you feeling any pressure or pain in your pelvis or lower back?
-
-**User Responds** → Backend processes the answers → Returns:
-- **Risk Level**: High
-- **Urgency**: Immediate medical attention recommended
-- **Suggestion**: Visit your OB or nearest emergency room
-
----
-
-## Usage Instructions
-
-### Local Setup
-
-1. Clone the repository:
-git clone https://github.com/ChaandiniV/PregnancyGuardian.git
-cd PregnancyGuardian
-
-
-2. Start the Python backend:
-cd server
-python hf_server.py
-
-
-
-3. In a second terminal, start the frontend:
-cd client
+### 2. Install Dependencies
+```bash
 npm install
+```
+
+### 3. Start Development Server
+```bash
 npm run dev
+```
 
-(OR)
+### 4. Open in Browser
+Navigate to `http://localhost:5000`
 
-Press the Run Button in Replit
+## 📁 Project Structure
 
+```
+pregnancy-health-assessment/
+├── client/                 # Frontend React application
+│   ├── src/
+│   │   ├── components/     # Reusable UI components
+│   │   ├── pages/          # Page components
+│   │   ├── lib/            # Utilities and types
+│   │   └── hooks/          # Custom React hooks
+├── server/                 # Backend Express server
+│   ├── services/           # Business logic services
+│   ├── routes.ts           # API route definitions
+│   └── storage.ts          # Data persistence layer
+├── shared/                 # Shared types and schemas
+├── netlify/               # Netlify deployment functions
+├── dist/                  # Built application (generated)
+└── deployment configs     # Various platform configurations
+```
 
-4. Access the frontend at `http://localhost:5000` or the Replit URL.
+## 🔧 Available Scripts
+
+```bash
+# Development
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+
+# Development Tools
+npm run check        # TypeScript type checking
+npm run db:push      # Database schema sync (if using PostgreSQL)
+```
+
+## 🌐 Deployment Options
+
+### Netlify (Recommended)
+1. Push code to GitHub repository
+2. Connect repository to Netlify
+3. Build settings are configured in `netlify.toml`
+4. Deploy automatically
+
+### Vercel
+1. Import repository to Vercel
+2. Configuration in `vercel.json`
+3. Deploy with zero configuration
+
+### Railway
+1. Connect GitHub repository
+2. Configuration in `railway.json`
+3. Automatic builds and deployment
+
+### Render
+1. Create new web service
+2. Configuration in `render.yaml`
+3. Auto-deploy from GitHub
+
+### Docker
+```bash
+docker build -t pregnancy-app .
+docker run -p 5000:5000 pregnancy-app
+```
+
+## 🏥 Medical Assessment Logic
+
+### Risk Categories
+- **Emergency**: Severe bleeding, chest pain, vision changes → Immediate medical attention
+- **High Risk**: Bleeding, fever, contractions → Contact provider within 24 hours
+- **Moderate**: Nausea, headaches, swelling → Schedule appointment within week
+- **Low Risk**: Normal pregnancy symptoms → Continue routine care
+
+### Assessment Factors
+- Symptom severity and combination
+- Gestational week considerations
+- Previous pregnancy complications
+- Additional reported symptoms
+
+## 🔒 Privacy & Disclaimers
+
+- No personal health information is permanently stored
+- All assessments are for informational purposes only
+- Users are directed to consult healthcare providers
+- Comprehensive medical disclaimers included throughout app
+
+## 🧪 Testing
+
+The application includes:
+- Form validation with Zod schemas
+- Error boundary components
+- Responsive design testing
+- Cross-browser compatibility
+
+## 📝 Environment Variables
+
+For enhanced features (optional):
+```bash
+OPENAI_API_KEY=your_openai_key_here  # For AI-powered assessments
+NODE_ENV=production                   # For production deployment
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
+
+## 📄 License
+
+This project is developed for educational and demonstration purposes. Not intended for actual medical diagnosis or treatment decisions.
+
+## ⚠️ Medical Disclaimer
+
+This application is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of qualified healthcare providers with questions about medical conditions or symptoms.
+
+## 🆘 Support
+
+For technical issues or questions:
+- Create an issue on GitHub
+- Check the deployment guides in the `/docs` folder
+- Review the troubleshooting section below
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Build Failures**
+- Ensure Node.js 18+ is installed
+- Clear `node_modules` and reinstall: `rm -rf node_modules && npm install`
+- Check for TypeScript errors: `npm run check`
+
+**API Connection Issues**
+- Verify server is running on port 5000
+- Check browser console for network errors
+- Ensure CORS settings allow frontend domain
+
+**Deployment Issues**
+- Verify build command completes successfully
+- Check platform-specific configuration files
+- Review deployment logs for specific errors
 
 ---
 
-## Deployment
-
-The application is deployed and publicly accessible at:
-
-[**Live URL**:] https://036cf12a-334c-477c-a8ed-3d89209e2f1d-00-tnfcfeuwq4pn.pike.replit.dev/]
-
----
-
-## Deliverables
-
-- Publicly accessible chatbot URL
-- GitHub repository with:
-- All code (frontend, backend, RAG engine)
-- README documentation
-- Setup instructions
-
----
-
-## Notes
-
-
-- The chatbot interaction was added to meet the “proactive questioning” requirement using a clean chat UX alongside the form.
-- Both interaction modes use the same risk classification logic for consistency.
-
----
-
-## License
-
-This project is developed and is intended for educational and demonstrative purposes only.
+Built with ❤️ for expectant mothers and healthcare accessibility
