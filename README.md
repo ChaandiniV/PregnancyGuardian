@@ -64,8 +64,8 @@ This project was built as part of a task to redefine pregnancy care through acce
 ### Local Setup
 
 1. Clone the repository:
-git clone https://github.com/your-username/gravilog-risk-assessment.git
-cd gravilog-risk-assessment
+git clone https://github.com/ChaandiniV/PregnancyGuardian.git
+cd PregnancyGuardian
 
 
 2. Start the Python backend:
@@ -81,7 +81,7 @@ npm run dev
 
 (OR)
 
-Press the Run Button.
+Press the Run Button in Replit
 
 
 4. Access the frontend at `http://localhost:5000` or the Replit URL.
@@ -92,7 +92,7 @@ Press the Run Button.
 
 The application is deployed and publicly accessible at:
 
-**Live URL**: [https://your-replit-link.repl.co](https://your-replit-link.repl.co)
+[**Live URL**:] https://036cf12a-334c-477c-a8ed-3d89209e2f1d-00-tnfcfeuwq4pn.pike.replit.dev/]
 
 ---
 
