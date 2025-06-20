@@ -25,107 +25,219 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
 });
 
-// Assessment endpoint - simplified for deployment
+// RAG-enhanced assessment endpoint with knowledge base
 app.post('/api/assessments', async (req, res) => {
   try {
     const { symptoms, gestationalWeek, previousComplications, additionalSymptoms } = req.body;
     
-    // Comprehensive pregnancy risk assessment based on medical knowledge
-    const emergencySymptoms = [
-      'severe bleeding', 'heavy bleeding', 'hemorrhage', 'severe abdominal pain', 
-      'severe cramping', 'severe headache', 'vision changes', 'blurred vision',
-      'chest pain', 'difficulty breathing', 'fainting', 'dizziness', 'seizures',
-      'high fever', 'chills', 'severe nausea', 'persistent vomiting'
-    ];
-    
-    const highRiskSymptoms = [
-      'bleeding', 'spotting', 'cramping', 'contractions', 'pelvic pressure',
-      'back pain', 'fever', 'headache', 'swelling', 'protein in urine',
-      'decreased fetal movement', 'leaking fluid'
-    ];
-    
-    const moderateRiskSymptoms = [
-      'nausea', 'morning sickness', 'fatigue', 'breast tenderness',
-      'mood changes', 'frequent urination', 'constipation', 'heartburn',
-      'leg cramps', 'varicose veins', 'hemorrhoids'
-    ];
-    
-    let riskLevel = 'low';
-    let urgency = 'routine';
-    let recommendations = ['Continue regular prenatal care', 'Maintain healthy lifestyle'];
-    let confidence = 0.8;
-    
-    // Check for emergency symptoms
-    const hasEmergencySymptoms = symptoms.some(s => 
-      emergencySymptoms.some(es => s.toLowerCase().includes(es.toLowerCase()))
-    );
-    
-    // Check for high risk symptoms
-    const hasHighRiskSymptoms = symptoms.some(s => 
-      highRiskSymptoms.some(hrs => s.toLowerCase().includes(hrs.toLowerCase()))
-    );
-    
-    // Check for moderate risk symptoms
-    const hasModerateRiskSymptoms = symptoms.some(s => 
-      moderateRiskSymptoms.some(mrs => s.toLowerCase().includes(mrs.toLowerCase()))
-    );
-    
-    if (hasEmergencySymptoms) {
-      riskLevel = 'high';
-      urgency = 'immediate';
-      confidence = 0.95;
-      recommendations = [
-        'Seek immediate medical attention',
-        'Call emergency services if symptoms are severe',
-        'Do not delay treatment'
-      ];
-    } else if (hasHighRiskSymptoms) {
-      riskLevel = 'high';
-      urgency = 'within_24_hours';
-      confidence = 0.85;
-      recommendations = [
-        'Contact your healthcare provider within 24 hours',
-        'Monitor symptoms closely',
-        'Avoid strenuous activities',
-        'Stay hydrated and rest'
-      ];
-    } else if (hasModerateRiskSymptoms) {
-      riskLevel = 'moderate';
-      urgency = 'within_week';
-      confidence = 0.75;
-      recommendations = [
-        'Schedule appointment with healthcare provider',
-        'Monitor symptoms and note any changes',
-        'Maintain regular prenatal vitamins',
-        'Get adequate rest and nutrition'
-      ];
-    }
-    
-    // Adjust risk based on gestational week
-    if (gestationalWeek) {
-      if (gestationalWeek < 12 && (hasHighRiskSymptoms || hasEmergencySymptoms)) {
-        urgency = 'immediate';
-        recommendations.push('First trimester complications require immediate attention');
-      } else if (gestationalWeek > 37 && hasHighRiskSymptoms) {
-        urgency = 'within_24_hours';
-        recommendations.push('Late pregnancy symptoms need prompt evaluation');
+    // Enhanced knowledge base for RAG-like retrieval
+    const knowledgeBase = {
+      highRiskCombinations: [
+        {
+          patterns: ['severe headache', 'vision changes', 'swelling'],
+          condition: 'Preeclampsia',
+          riskLevel: 'high',
+          urgency: 'immediate',
+          confidence: 0.95,
+          recommendations: [
+            'Seek immediate medical attention - go to emergency room',
+            'This combination suggests preeclampsia, which requires urgent care',
+            'Do not delay - call 911 if symptoms are severe',
+            'Monitor blood pressure if possible'
+          ]
+        },
+        {
+          patterns: ['heavy bleeding', 'severe cramping'],
+          condition: 'Possible miscarriage or placental abruption',
+          riskLevel: 'high',
+          urgency: 'immediate',
+          confidence: 0.9,
+          recommendations: [
+            'Call emergency services immediately',
+            'Go to nearest emergency room',
+            'Do not drive yourself - call for help',
+            'Note amount and color of bleeding for medical team'
+          ]
+        },
+        {
+          patterns: ['fever', 'chills', 'foul discharge'],
+          condition: 'Possible intrauterine infection',
+          riskLevel: 'high',
+          urgency: 'immediate',
+          confidence: 0.85,
+          recommendations: [
+            'Seek immediate medical care',
+            'Infection during pregnancy requires urgent treatment',
+            'Contact OB/GYN or go to emergency room',
+            'Note temperature and discharge characteristics'
+          ]
+        },
+        {
+          patterns: ['no fetal movement', 'decreased movement'],
+          condition: 'Fetal distress concern',
+          riskLevel: 'high',
+          urgency: 'immediate',
+          confidence: 0.8,
+          recommendations: [
+            'Contact healthcare provider immediately',
+            'Go to labor and delivery unit for monitoring',
+            'Try drinking cold water and lying on left side',
+            'Do not wait - decreased movement requires evaluation'
+          ]
+        }
+      ],
+      mediumRiskPatterns: [
+        {
+          patterns: ['persistent vomiting', 'dehydration'],
+          condition: 'Hyperemesis gravidarum',
+          recommendations: [
+            'Contact healthcare provider within 24 hours',
+            'Monitor hydration status',
+            'Try small, frequent meals',
+            'Consider anti-nausea medications with doctor approval'
+          ]
+        },
+        {
+          patterns: ['regular contractions', 'pelvic pressure'],
+          condition: 'Possible preterm labor',
+          recommendations: [
+            'Time contractions and contact provider if regular',
+            'Lie down and drink water',
+            'If before 37 weeks, seek immediate evaluation',
+            'Monitor for other labor signs'
+          ]
+        },
+        {
+          patterns: ['headache', 'high blood pressure'],
+          condition: 'Hypertension monitoring needed',
+          recommendations: [
+            'Monitor blood pressure regularly',
+            'Contact provider if persistently elevated',
+            'Reduce sodium intake',
+            'Watch for vision changes or severe headaches'
+          ]
+        }
+      ],
+      gestationalRisks: {
+        firstTrimester: {
+          highRisk: ['bleeding', 'severe cramping', 'shoulder pain'],
+          concerns: 'Early pregnancy complications including ectopic pregnancy'
+        },
+        secondTrimester: {
+          moderate: ['decreased movement', 'leaking fluid'],
+          concerns: 'Cervical insufficiency and gestational diabetes screening'
+        },
+        thirdTrimester: {
+          highRisk: ['severe swelling', 'persistent headache', 'vision changes'],
+          concerns: 'Preeclampsia and preterm labor monitoring'
+        }
       }
+    };
+    
+    // RAG-like knowledge retrieval and analysis
+    function analyzeWithKnowledgeBase(symptoms, gestationalWeek) {
+      let assessment = {
+        riskLevel: 'low',
+        urgency: 'routine',
+        confidence: 0.7,
+        recommendations: ['Continue routine prenatal care', 'Monitor symptoms'],
+        reasoning: 'Standard pregnancy symptoms assessment',
+        matchedConditions: []
+      };
+      
+      const symptomsText = symptoms.join(' ').toLowerCase();
+      
+      // Check high-risk combinations first
+      for (const combo of knowledgeBase.highRiskCombinations) {
+        const matchCount = combo.patterns.filter(pattern => 
+          symptomsText.includes(pattern.toLowerCase())
+        ).length;
+        
+        if (matchCount >= 2 || (matchCount >= 1 && combo.patterns.length === 1)) {
+          assessment = {
+            riskLevel: combo.riskLevel,
+            urgency: combo.urgency,
+            confidence: combo.confidence,
+            recommendations: combo.recommendations,
+            reasoning: `Knowledge base match: ${combo.condition}. Pattern analysis indicates high-risk symptom combination requiring immediate attention.`,
+            matchedConditions: [combo.condition]
+          };
+          break; // Return immediately for high-risk matches
+        }
+      }
+      
+      // If not high risk, check medium risk patterns
+      if (assessment.riskLevel === 'low') {
+        for (const pattern of knowledgeBase.mediumRiskPatterns) {
+          const hasPattern = pattern.patterns.some(p => 
+            symptomsText.includes(p.toLowerCase())
+          );
+          
+          if (hasPattern) {
+            assessment = {
+              riskLevel: 'moderate',
+              urgency: 'within_24_hours',
+              confidence: 0.75,
+              recommendations: pattern.recommendations,
+              reasoning: `Knowledge base assessment: ${pattern.condition}. Symptoms require medical evaluation and monitoring.`,
+              matchedConditions: [pattern.condition]
+            };
+          }
+        }
+      }
+      
+      // Gestational week-specific adjustments
+      if (gestationalWeek && assessment.riskLevel !== 'low') {
+        const risks = knowledgeBase.gestationalRisks;
+        let gestationalContext = '';
+        
+        if (gestationalWeek <= 12) {
+          if (risks.firstTrimester.highRisk.some(risk => symptomsText.includes(risk))) {
+            assessment.urgency = 'immediate';
+            gestationalContext = risks.firstTrimester.concerns;
+          }
+        } else if (gestationalWeek <= 27) {
+          gestationalContext = risks.secondTrimester.concerns;
+        } else {
+          if (risks.thirdTrimester.highRisk.some(risk => symptomsText.includes(risk))) {
+            assessment.riskLevel = 'high';
+            assessment.urgency = 'immediate';
+          }
+          gestationalContext = risks.thirdTrimester.concerns;
+        }
+        
+        if (gestationalContext) {
+          assessment.reasoning += ` Gestational week ${gestationalWeek}: ${gestationalContext}.`;
+        }
+      }
+      
+      return assessment;
     }
     
-    // Adjust for previous complications
-    if (previousComplications && riskLevel !== 'low') {
-      urgency = urgency === 'within_week' ? 'within_24_hours' : urgency;
-      recommendations.push('Previous complications increase current risk - seek care promptly');
+    // Perform RAG-enhanced assessment
+    const ragAssessment = analyzeWithKnowledgeBase(symptoms, gestationalWeek);
+    
+    // Apply previous complications factor
+    if (previousComplications && ragAssessment.riskLevel !== 'low') {
+      ragAssessment.urgency = ragAssessment.urgency === 'routine' ? 'within_24_hours' : 
+                              ragAssessment.urgency === 'within_24_hours' ? 'immediate' : ragAssessment.urgency;
+      ragAssessment.recommendations.push('Previous complications increase current risk - seek prompt medical evaluation');
+      ragAssessment.reasoning += ' Previous pregnancy complications noted in assessment.';
+    }
+    
+    // Include additional symptoms in reasoning
+    if (additionalSymptoms) {
+      ragAssessment.reasoning += ` Additional reported symptoms: ${additionalSymptoms}.`;
     }
     
     const response = {
       assessmentId: Math.floor(Math.random() * 10000),
       sessionId: `session_${Date.now()}`,
-      riskLevel,
-      recommendations,
-      aiAnalysis: `Based on your reported symptoms${gestationalWeek ? ` at ${gestationalWeek} weeks` : ''}, this assessment indicates ${riskLevel} risk. ${additionalSymptoms ? 'Additional symptoms have been considered in this evaluation.' : ''} This evaluation is based on established medical guidelines for pregnancy symptoms.`,
-      confidence,
-      urgency
+      riskLevel: ragAssessment.riskLevel,
+      recommendations: ragAssessment.recommendations,
+      aiAnalysis: ragAssessment.reasoning,
+      confidence: ragAssessment.confidence,
+      urgency: ragAssessment.urgency
     };
     
     res.json(response);
