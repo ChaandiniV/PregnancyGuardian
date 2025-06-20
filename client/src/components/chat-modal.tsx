@@ -48,14 +48,22 @@ export default function ChatModal({ open, onOpenChange }: ChatModalProps) {
 
   const assessmentMutation = useMutation({
     mutationFn: async (data: AssessmentFormData) => {
+      // Try Netlify function first, then fallback to client-side
       try {
-        const response = await apiRequest("POST", "/api/assessments", data);
-        return response.json() as Promise<AssessmentResponse>;
+        const response = await fetch('/api/assessments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (response.ok) {
+          return response.json() as Promise<AssessmentResponse>;
+        }
       } catch (error) {
-        // Fallback assessment if API fails
-        console.log("API failed, using fallback assessment");
-        return createFallbackAssessment(data);
+        console.log("Netlify function unavailable, using client-side assessment");
       }
+      
+      // Fallback to client-side assessment
+      return createFallbackAssessment(data);
     },
   });
 

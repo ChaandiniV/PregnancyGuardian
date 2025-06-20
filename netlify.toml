@@ -6,6 +6,16 @@
   NODE_VERSION = "20"
 
 [[redirects]]
+  from = "/api/assessments"
+  to = "/.netlify/functions/assessments"
+  status = 200
+
+[[redirects]]
+  from = "/api/symptoms"
+  to = "/.netlify/functions/symptoms"
+  status = 200
+
+[[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
@@ -17,7 +27,7 @@
 
 [functions]
   directory = "netlify/functions"
-  node_bundler = "nft"
+  node_bundler = "esbuild"
 
 [[headers]]
   for = "/api/*"
