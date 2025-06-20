@@ -4,13 +4,13 @@ A proactive RAG-based chatbot for pregnancy health assessment using comprehensiv
 
 ## Features
 
-### ✅ Complete RAG Implementation
+###  Complete RAG Implementation
 - **Knowledge Base**: WHO pregnancy guidelines with evidence-based protocols
 - **Proactive Questioning**: AI asks 5 sequential health questions before assessment
 - **Risk Assessment**: Low/Medium/High risk levels with urgency indicators
 - **Medical Reasoning**: Evidence-based analysis with condition matching
 
-### ✅ Proactive Chatbot Flow
+###  Proactive Chatbot Flow
 1. AI greets user and explains assessment process
 2. Asks 5 targeted questions:
    - Bleeding or discharge symptoms
@@ -21,7 +21,7 @@ A proactive RAG-based chatbot for pregnancy health assessment using comprehensiv
 3. Analyzes responses using medical knowledge base
 4. Provides structured risk assessment with recommendations
 
-### ✅ RAG Architecture
+###  RAG Architecture
 - **Knowledge Retrieval**: Pattern matching against medical conditions
 - **Symptom Analysis**: Multi-factor risk scoring system
 - **Gestational Context**: Week-specific risk adjustments
@@ -94,10 +94,10 @@ npm run dev
 - Emergency contact information provided
 
 ## Deployment Status
-✅ RAG implementation complete
-✅ Knowledge base integrated
-✅ Proactive questioning implemented  
-✅ Netlify-ready configuration
-✅ Medical accuracy validated
+ RAG implementation complete
+ Knowledge base integrated
+ Proactive questioning implemented  
+ Netlify-ready configuration
+ Medical accuracy validated
 
 Ready for production deployment with full RAG functionality.
