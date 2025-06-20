@@ -13,13 +13,13 @@ from threading import Thread
 processes = []
 
 def start_rag_service():
-    """Start the Python RAG service"""
-    print("Starting RAG service on port 8000...")
+    """Start the HF RAG service"""
+    print("Starting HF RAG service on port 8001...")
     try:
         env = os.environ.copy()
-        env['RAG_PORT'] = '8000'
+        env['HF_RAG_PORT'] = '8001'
         process = subprocess.Popen(
-            [sys.executable, "server/rag_server.py"],
+            [sys.executable, "server/hf_rag_server.py"],
             env=env,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
@@ -27,12 +27,16 @@ def start_rag_service():
         )
         processes.append(process)
         
-        # Print output from RAG service
-        for line in iter(process.stdout.readline, ''):
-            print(f"[RAG] {line.strip()}")
+        # Print output from HF RAG service
+        if process.stdout:
+            for line in iter(process.stdout.readline, ''):
+                if line:
+                    print(f"[HF-RAG] {line.strip()}")
+                else:
+                    break
         
     except Exception as e:
-        print(f"Failed to start RAG service: {e}")
+        print(f"Failed to start HF RAG service: {e}")
 
 def start_node_server():
     """Start the Node.js server"""

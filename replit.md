@@ -107,6 +107,11 @@ Changelog:
 - June 18, 2025. Enhanced system with comprehensive pregnancy knowledge base
 - June 18, 2025. Added multi-tier fallback: HF Service → Rule-based → Safety fallback
 - June 18, 2025. Added color-coded risk indicators: Red (high), Yellow (moderate), Green (low)
+- June 20, 2025. Completed RAG implementation with HF-based service (no OpenAI required)
+- June 20, 2025. Implemented proactive questioning system with 5 sequential health questions
+- June 20, 2025. Created comprehensive pregnancy knowledge base with WHO guidelines
+- June 20, 2025. Added HF RAG server with rule-based fallback for reliability
+- June 20, 2025. Integrated chat modal with conversational AI assessment interface
 ```
 
 ## User Preferences

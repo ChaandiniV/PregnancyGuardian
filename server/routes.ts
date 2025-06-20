@@ -2,8 +2,142 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { assessmentRequestSchema } from "@shared/schema";
-import { assessPregnancyRisk } from "./services/openai";
+import { spawn } from "child_process";
+import { promisify } from "util";
+import fetch from "node-fetch";
 import { nanoid } from "nanoid";
+
+// HF RAG assessment function
+async function assessWithHFRAG(
+  symptoms: string[],
+  gestationalWeek?: number,
+  previousComplications?: boolean,
+  additionalSymptoms?: string
+) {
+  try {
+    // Try to connect to HF RAG service first
+    const hfRagUrl = process.env.HF_RAG_URL || "http://localhost:8001";
+    
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+    const response = await fetch(`${hfRagUrl}/assess`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        symptoms,
+        gestationalWeek,
+        previousComplications,
+        additionalSymptoms
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      const result = await response.json() as {
+        riskLevel: string;
+        confidence: number;
+        recommendations: string[];
+        reasoning: string;
+        urgency: string;
+      };
+      return {
+        riskLevel: result.riskLevel,
+        confidence: result.confidence,
+        recommendations: result.recommendations,
+        reasoning: result.reasoning,
+        urgency: result.urgency
+      };
+    }
+  } catch (error) {
+    console.log("HF RAG service not available, using fallback assessment");
+  }
+
+  // Fallback to rule-based assessment
+  return assessWithRules(symptoms, gestationalWeek, previousComplications, additionalSymptoms);
+}
+
+// Rule-based fallback assessment
+function assessWithRules(
+  symptoms: string[],
+  gestationalWeek?: number,
+  previousComplications?: boolean,
+  additionalSymptoms?: string
+) {
+  let riskScore = 0;
+  const recommendations: string[] = [];
+  
+  // High risk patterns
+  const highRiskPatterns = [
+    ['heavy', 'bleeding'], ['severe', 'pain'], ['no', 'movement'],
+    ['vision', 'changes'], ['severe', 'headache'], ['high', 'fever']
+  ];
+  
+  // Medium risk patterns  
+  const mediumRiskPatterns = [
+    ['persistent', 'vomiting'], ['light', 'bleeding'], ['headache'],
+    ['decreased', 'movement'], ['spotting']
+  ];
+
+  const symptomsText = symptoms.join(' ').toLowerCase();
+  
+  // Check for high risk patterns
+  for (const pattern of highRiskPatterns) {
+    if (pattern.every(word => symptomsText.includes(word))) {
+      riskScore += 3;
+    }
+  }
+  
+  // Check for medium risk patterns
+  for (const pattern of mediumRiskPatterns) {
+    if (pattern.every(word => symptomsText.includes(word))) {
+      riskScore += 2;
+    }
+  }
+
+  // Adjust for gestational week and complications
+  if (gestationalWeek && gestationalWeek < 12 && symptomsText.includes('bleeding')) {
+    riskScore += 2;
+  }
+  if (previousComplications) {
+    riskScore += 1;
+  }
+
+  // Determine risk level
+  let riskLevel: string;
+  let urgency: string;
+  let confidence: number;
+
+  if (riskScore >= 6) {
+    riskLevel = "high";
+    urgency = "immediate";
+    confidence = 0.85;
+    recommendations.push("Seek immediate medical attention - go to emergency room");
+    recommendations.push("Do not delay medical care");
+  } else if (riskScore >= 3) {
+    riskLevel = "moderate";
+    urgency = "within_24_hours";
+    confidence = 0.75;
+    recommendations.push("Contact your healthcare provider within 24 hours");
+    recommendations.push("Monitor symptoms closely");
+  } else {
+    riskLevel = "low";
+    urgency = "routine";
+    confidence = 0.65;
+    recommendations.push("Continue routine prenatal care");
+    recommendations.push("Monitor symptoms and contact provider if they worsen");
+  }
+
+  return {
+    riskLevel,
+    confidence,
+    recommendations,
+    reasoning: `Assessment based on symptom analysis. Risk score: ${riskScore}. ${gestationalWeek ? `Gestational week ${gestationalWeek} considered.` : ''} ${previousComplications ? 'Previous complications noted.' : ''}`,
+    urgency
+  };
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
@@ -26,8 +160,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate unique session ID
       const sessionId = nanoid();
       
-      // Get AI risk assessment
-      const riskAssessment = await assessPregnancyRisk(
+      // Get AI risk assessment using HF RAG service
+      const riskAssessment = await assessWithHFRAG(
         validatedData.symptoms,
         validatedData.gestationalWeek,
         validatedData.previousComplications,

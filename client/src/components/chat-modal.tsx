@@ -81,14 +81,6 @@ export default function ChatModal({ open, onOpenChange }: ChatModalProps) {
     // Start with proactive questioning
     simulateTyping(() => {
       addMessage("ai", "Hello! I'm Dr. AI, your pregnancy health assistant. I'll ask you 5 important questions about your current symptoms to provide a personalized risk assessment. Let's begin:");
-      setTimeout(() => {
-        addMessage("ai", proactiveQuestions[0]);
-      }, 500);
-    });
-  };
-    // Add welcome message and first question
-    simulateTyping(() => {
-      addMessage("ai", "Hello! I'm Dr. AI, your virtual healthcare assistant. I'll ask you 5 quick questions to assess your current health status. Let's begin:");
       
       setTimeout(() => {
         simulateTyping(() => {

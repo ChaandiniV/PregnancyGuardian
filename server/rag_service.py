@@ -4,13 +4,14 @@ from typing import List, Dict, Any, Optional
 from dotenv import load_dotenv
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
 from llama_index.core.node_parser import SimpleNodeParser
-from llama_index.embeddings.openai import OpenAIEmbedding
-from llama_index.llms.openai import OpenAI
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.postprocessor import SimilarityPostprocessor
 from pydantic import BaseModel
 import json
+import requests
+import re
 
 # Load environment variables
 load_dotenv()
@@ -28,20 +29,14 @@ class RiskAssessmentResult(BaseModel):
 
 class PregnancyRAGService:
     def __init__(self):
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
-        if not self.openai_api_key:
-            raise ValueError("OPENAI_API_KEY environment variable is required")
+        # Use Hugging Face embedding model (free)
+        Settings.embed_model = HuggingFaceEmbedding(
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
+        )
         
-        # Initialize LlamaIndex settings
-        Settings.llm = OpenAI(
-            model="gpt-4o",  # the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-            api_key=self.openai_api_key,
-            temperature=0.1  # Lower temperature for more consistent medical assessments
-        )
-        Settings.embed_model = OpenAIEmbedding(
-            model="text-embedding-3-small",
-            api_key=self.openai_api_key
-        )
+        # Hugging Face API endpoint for Zephyr model
+        self.hf_api_url = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta"
+        self.hf_token = os.getenv("HUGGINGFACE_API_TOKEN")  # Optional, works without token but with rate limits
         
         self.index = None
         self.query_engine = None

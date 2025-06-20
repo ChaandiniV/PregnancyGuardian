@@ -1,173 +1,170 @@
-WHO Pregnancy Guidelines and Medical Knowledge Base
+PREGNANCY RISK ASSESSMENT KNOWLEDGE BASE
 
-SYMPTOM CATEGORIZATION BY SEVERITY AND CONTEXT
+1. SYMPTOM CATEGORIZATION BY SEVERITY AND CONTEXT
 
-Normal (Low Risk) Symptoms:
-- Mild Nausea: Common in the 1st trimester due to hCG hormone. Normal physiological response.
-- Light Spotting: Possible during implantation (first 4-6 weeks). Monitor but not immediately concerning.
-- Mild Back Pain: Due to ligament stretching and postural changes. Normal pregnancy adaptation.
-- Constipation & Gas: Related to progesterone slowing digestion. Common throughout pregnancy.
-- Breast Tenderness: Normal hormonal response in early pregnancy.
-- Frequent Urination: Normal due to increased blood volume and uterine pressure.
-- Fatigue: Common in first and third trimesters due to hormonal changes.
+NORMAL (LOW RISK) SYMPTOMS:
+- Mild nausea: Common in 1st trimester due to hCG hormone
+- Light spotting: Possible during implantation (first 4-6 weeks)
+- Mild back pain: Due to ligament stretching
+- Constipation & gas: Related to progesterone slowing digestion
+- Fatigue: Normal due to hormonal changes
+- Breast tenderness: Normal hormonal response
 
-Medium Risk Indicators:
-- Persistent Vomiting > 3x/day: Could suggest hyperemesis gravidarum requiring medical evaluation.
-- Elevated Blood Pressure (≥140/90): Must monitor for preeclampsia development.
-- Gestational Diabetes Symptoms: Excessive thirst, fatigue, frequent urination beyond normal.
-- Mild Vaginal Bleeding in 2nd/3rd Trimester: Needs immediate OB evaluation for placental issues.
-- Regular Contractions before 37 weeks: Potential preterm labor requiring assessment.
-- Decreased Fetal Movement: After 28 weeks, concerning for fetal wellbeing.
+MEDIUM RISK INDICATORS:
+- Persistent vomiting >3x/day: Could suggest hyperemesis gravidarum
+- Elevated blood pressure (≥140/90): Must monitor for preeclampsia
+- Gestational diabetes symptoms: Excessive thirst, fatigue, frequent urination
+- Mild vaginal bleeding in 2nd/3rd trimester: Needs immediate OB evaluation
+- Decreased fetal movement: Requires monitoring
+- Persistent headaches: Could indicate hypertension
 
-High Risk / Emergency Symptoms:
-- Heavy Vaginal Bleeding + Cramping: Miscarriage or placental abruption - immediate care needed.
-- Severe Abdominal Pain (localized): Possible ectopic pregnancy (if early) or other complications.
-- Blurry Vision + Headache + Swelling: Classic triad of preeclampsia requiring immediate intervention.
-- Fever > 38.5°C with chills: Suspected intrauterine infection or other serious condition.
-- Reduced or No Fetal Movement: Fetal distress, hypoxia, or demise - emergency evaluation.
-- Severe Headaches with visual disturbances: Preeclampsia or other neurological complications.
-- Chest Pain or Difficulty Breathing: Pulmonary embolism or cardiac complications.
+HIGH RISK / EMERGENCY:
+- Heavy vaginal bleeding + cramping: Miscarriage or placental abruption
+- Severe abdominal pain (localized): Possible ectopic pregnancy (if early)
+- Blurry vision + headache + swelling: Classic triad of preeclampsia
+- Fever >38.5°C with chills: Suspected intrauterine infection
+- Reduced or no fetal movement: Fetal distress, hypoxia, or demise
+- Severe continuous headache with vision changes
+- Sudden severe abdominal pain
+- Rupture of membranes before 37 weeks
 
-RISK FACTORS & TRIGGERS BY CONDITION
+2. RISK FACTORS & TRIGGERS BY CONDITION
 
-Preeclampsia Risk Factors:
-- First pregnancy (nulliparity)
-- Maternal age <18 or >35 years
+PREECLAMPSIA:
+Risk increases with:
+- First pregnancy
+- Age <18 or >35
 - Obesity (BMI > 30)
 - Chronic hypertension
 - Diabetes or kidney disease
-- Multiple gestation
-- Family history of preeclampsia
+- Multiple pregnancy
 
-Preeclampsia Warning Signs:
-- Protein in urine (proteinuria)
-- Severe headaches that don't respond to medication
-- Epigastric pain (upper abdominal pain)
-- Visual disturbances (blurred vision, seeing spots)
-- Sudden weight gain and swelling
-- Decreased urine output
+Watch for:
+- Protein in urine
+- Severe headaches
+- Epigastric pain
+- Visual disturbances
+- Sudden weight gain
 
-Gestational Diabetes Risk Factors:
-- BMI > 25 before pregnancy
-- Family history of type 2 diabetes
-- Previous macrosomia (baby >4kg)
+GESTATIONAL DIABETES:
+Risk increases with:
+- BMI > 25
+- Family history of diabetes
+- Previous macrosomia (>4kg baby)
 - Previous gestational diabetes
-- Age > 25 years
-- Certain ethnic backgrounds (Hispanic, African American, Native American, Asian)
 
-Gestational Diabetes Symptoms:
-- Often subtle or asymptomatic
-- Excessive fatigue beyond normal pregnancy
-- Increased thirst (polydipsia)
-- Frequent urination beyond normal
-- Blurred vision
-- Detected via glucose tolerance test (OGTT) at 24-28 weeks
+Symptoms often subtle:
+- Fatigue, thirst, blurred vision
+- Detected via glucose tolerance test (OGTT)
 
-Preterm Labor Warning Signs (before 37 weeks):
-- Regular contractions (every 10 minutes or less)
-- Lower back pressure or pain
-- Pelvic pressure or cramping
+PRETERM LABOR:
+Warning signs before 37 weeks:
+- Regular contractions
+- Lower back pressure
+- Pelvic pressure
 - Watery discharge or rupture of membranes
 - Change in vaginal discharge
-- Dull, persistent lower backache
 
-Placenta Previa:
-- Placenta covers cervix partially or completely
+PLACENTA PREVIA:
+- Placenta covers cervix partially/completely
 - Classic symptom: Painless bright red vaginal bleeding
-- Usually detected on ultrasound
 - Requires C-section if persists near term
-- Bleeding episodes may increase in frequency and severity
 
-Ectopic Pregnancy (6-8 weeks):
+ECTOPIC PREGNANCY:
 - Implantation outside uterus (commonly fallopian tube)
-- Sharp, stabbing one-sided abdominal or pelvic pain
-- Vaginal bleeding (lighter or heavier than normal period)
-- Dizziness, lightheadedness, or fainting
+- Symptoms in 6-8 weeks:
+- Sharp one-sided pain
+- Dizziness or fainting
 - Shoulder tip pain (if internal bleeding)
-- Nausea and vomiting
 
-RED FLAG SYMPTOM COMBINATIONS
+3. RED FLAG SYMPTOM COMBINATIONS
 
-Critical Combinations Requiring Immediate Care:
-1. Severe headache + vision changes + swelling = Severe Preeclampsia
-2. Heavy bleeding + sharp abdominal pain + low blood pressure = Placental abruption/Ectopic
-3. Fever + vaginal discharge + abdominal tenderness = Chorioamnionitis (Infection)
-4. No fetal movement after 28 weeks + decreased baseline variability = Fetal compromise
-5. Contractions < 37 weeks + cervical changes = Preterm labor
-6. Chest pain + shortness of breath + leg swelling = Pulmonary embolism
+Severe headache + vision changes + swelling = Preeclampsia (HIGH RISK)
+Bleeding + sharp abdominal pain + low BP = Ectopic Pregnancy (HIGH RISK)
+Fever + vaginal discharge + abdominal tenderness = Chorioamnionitis (HIGH RISK)
+No fetal movement after 28 weeks = Fetal demise or distress (HIGH RISK)
+Contractions < 37 weeks + cervical changes = Preterm labor (MEDIUM-HIGH RISK)
 
-SYMPTOM TIMELINE BY TRIMESTER
+4. SYMPTOM TIMELINE REFERENCE BY TRIMESTER
 
-First Trimester (Weeks 1-12):
-- Primary risks: Miscarriage, Ectopic Pregnancy, Hyperemesis Gravidarum
-- Normal symptoms: Nausea, breast tenderness, fatigue, frequent urination
-- Red flags: Severe one-sided pain, heavy bleeding, shoulder pain, severe vomiting
+FIRST TRIMESTER (Weeks 1-12):
+Risk: Miscarriage, Ectopic Pregnancy
+Normal symptoms: Nausea, spotting, fatigue
+Red flags: Severe pain, heavy bleeding, shoulder pain
 
-Second Trimester (Weeks 13-27):
-- Primary risks: Gestational Diabetes, Cervical Insufficiency, Neural tube defects
-- Normal symptoms: Increased energy, baby movement begins (~20 weeks), appetite increase
-- Red flags: Lack of fetal movement after 20 weeks, regular contractions, fluid leaking
+SECOND TRIMESTER (Weeks 13-27):
+Risk: Gestational Diabetes, Cervical Insufficiency
+Normal symptoms: Baby movement begins (~20 weeks), increased appetite
+Red flags: Lack of movement, contractions, leaking fluid
 
-Third Trimester (Weeks 28-40+):
-- Primary risks: Preeclampsia, Preterm Labor, Placental complications, Stillbirth
-- Normal symptoms: Braxton-Hicks contractions, heartburn, swelling in feet
-- Red flags: Severe swelling in face/hands, no fetal movement, regular contractions before 37 weeks
+THIRD TRIMESTER (Weeks 28-40+):
+Risk: Preeclampsia, Preterm Labor, Stillbirth
+Normal symptoms: Heartburn, Braxton-Hicks, swelling
+Red flags: Severe swelling, no fetal movement, bleeding
 
-RISK ASSESSMENT GUIDELINES
+5. EVIDENCE-BASED RECOMMENDATIONS
 
-Low Risk Assessment Criteria:
-- Normal physiological pregnancy symptoms
-- No concerning symptom combinations
-- Symptoms consistent with gestational age
-- No significant risk factors present
-Action: Routine prenatal care, self-monitoring, lifestyle modifications
+LOW RISK:
+- Self-monitor symptoms
+- Routine prenatal follow-up
+- Maintain healthy diet and exercise
+- Take prenatal vitamins
 
-Medium Risk Assessment Criteria:
-- Isolated concerning symptoms requiring evaluation
-- Risk factors present without acute symptoms
-- Symptoms that could indicate developing complications
-Action: Contact healthcare provider within 24-48 hours, increased monitoring
+MEDIUM RISK:
+- Contact doctor within 24 hours
+- Monitor symptoms closely
+- May need additional testing
+- Follow up within 1-2 days
 
-High Risk Assessment Criteria:
-- Emergency symptom combinations present
-- Severe isolated symptoms (heavy bleeding, severe pain)
-- Signs of serious pregnancy complications
-Action: Immediate medical attention, emergency department evaluation
+HIGH RISK:
+- Immediate visit to ER or OB emergency care
+- Call 911 if severe symptoms
+- Do not delay medical attention
+- May require immediate intervention
 
-PROACTIVE QUESTIONING FRAMEWORK
+6. WHO GUIDELINES FOR PREGNANCY CARE
 
-Essential Screening Questions:
-1. "Are you currently experiencing any unusual bleeding or discharge?"
-2. "How would you describe your baby's movements today compared to yesterday?" (after 20 weeks)
-3. "Have you had any headaches that won't go away or affect your vision?"
-4. "Do you feel any pressure, pain, or cramping in your pelvis or lower back?"
-5. "Have you had a fever or noticed any foul-smelling discharge?"
+- Regular prenatal visits starting at 8-12 weeks
+- Blood pressure monitoring at each visit
+- Urine testing for protein and glucose
+- Fetal growth monitoring
+- Vaccination schedules (influenza, Tdap)
+- Nutritional counseling
+- Mental health screening
 
-Follow-up Questions Based on Responses:
-- If bleeding: "How heavy is the bleeding? Are you passing clots? Any cramping?"
-- If headache: "How severe? Any vision changes? Swelling in hands or face?"
-- If pain: "Where exactly? How severe on 1-10 scale? Constant or intermittent?"
-- If movement concerns: "When did you last feel baby move? Normal pattern for you?"
+7. EMERGENCY CONTACT CRITERIA
 
-EVIDENCE-BASED RECOMMENDATIONS
+CALL 911 IMMEDIATELY FOR:
+- Heavy bleeding with clots
+- Severe abdominal pain
+- Loss of consciousness
+- Difficulty breathing
+- Chest pain
+- Seizures
+- Signs of stroke
 
-For Low Risk:
-- Continue routine prenatal appointments
-- Maintain healthy diet with prenatal vitamins
-- Stay hydrated and get adequate rest
-- Monitor symptoms and report changes
-- Follow exercise guidelines for pregnancy
+CONTACT OB/GYN URGENTLY FOR:
+- Persistent vomiting
+- High fever
+- Severe headache
+- Vision changes
+- Decreased fetal movement
+- Leaking fluid
+- Regular contractions before 37 weeks
 
-For Medium Risk:
-- Schedule appointment with healthcare provider within 24-48 hours
-- Keep symptom diary with timing and severity
-- Avoid strenuous activities until evaluated
-- Stay hydrated and rest
-- Have emergency contact information readily available
+8. RISK ASSESSMENT SCORING
 
-For High Risk:
-- Seek immediate medical attention
-- Go to nearest emergency department or labor & delivery
-- Do not drive yourself if experiencing severe symptoms
-- Bring pregnancy records and medication list
-- Call emergency services if symptoms are severe or worsening rapidly
+LOW RISK (Score 0-3):
+- Normal pregnancy symptoms
+- No concerning combinations
+- Appropriate for gestational age
+
+MEDIUM RISK (Score 4-7):
+- Some concerning symptoms
+- May indicate developing condition
+- Requires medical evaluation
+
+HIGH RISK (Score 8+):
+- Multiple red flag symptoms
+- Emergency condition likely
+- Immediate medical attention required
