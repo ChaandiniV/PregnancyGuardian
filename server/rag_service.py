@@ -51,11 +51,12 @@ class PregnancyRAGService:
         """Initialize the RAG knowledge base from documents"""
         try:
             # Load documents from knowledge base directory
-            knowledge_base_path = "knowledge_base"
+            knowledge_base_path = "server/knowledge_base"
             if not os.path.exists(knowledge_base_path):
-                knowledge_base_path = "server/knowledge_base"
+                knowledge_base_path = "knowledge_base"
             if not os.path.exists(knowledge_base_path):
-                raise FileNotFoundError(f"Knowledge base directory not found: {knowledge_base_path}")
+                os.makedirs("server/knowledge_base", exist_ok=True)
+                logger.warning("Knowledge base directory created. Please add medical documents.")
             
             documents = SimpleDirectoryReader(knowledge_base_path).load_data()
             logger.info(f"Loaded {len(documents)} documents from knowledge base")
