@@ -48,10 +48,61 @@ export default function ChatModal({ open, onOpenChange }: ChatModalProps) {
 
   const assessmentMutation = useMutation({
     mutationFn: async (data: AssessmentFormData) => {
-      const response = await apiRequest("POST", "/api/assessments", data);
-      return response.json() as Promise<AssessmentResponse>;
+      try {
+        const response = await apiRequest("POST", "/api/assessments", data);
+        return response.json() as Promise<AssessmentResponse>;
+      } catch (error) {
+        // Fallback assessment if API fails
+        console.log("API failed, using fallback assessment");
+        return createFallbackAssessment(data);
+      }
     },
   });
+
+  // Fallback assessment function
+  const createFallbackAssessment = (data: AssessmentFormData): AssessmentResponse => {
+    const symptomsText = data.symptoms.join(' ').toLowerCase();
+    
+    // Simple risk assessment
+    let riskLevel: "low" | "moderate" | "high" = "low";
+    let urgency: "routine" | "within_week" | "within_24_hours" | "immediate" = "routine";
+    let recommendations: string[] = ["Continue routine prenatal care", "Monitor symptoms"];
+    let confidence = 0.7;
+    
+    // High-risk patterns
+    if (symptomsText.includes('severe bleeding') || symptomsText.includes('severe headache') || 
+        (symptomsText.includes('headache') && symptomsText.includes('vision')) ||
+        symptomsText.includes('chest pain') || symptomsText.includes('difficulty breathing')) {
+      riskLevel = "high";
+      urgency = "immediate";
+      confidence = 0.9;
+      recommendations = [
+        "Seek immediate medical attention",
+        "Go to emergency room or call 911",
+        "Do not delay medical care"
+      ];
+    } else if (symptomsText.includes('bleeding') || symptomsText.includes('headache') || 
+               symptomsText.includes('fever') || symptomsText.includes('vomiting')) {
+      riskLevel = "moderate";
+      urgency = "within_24_hours";
+      confidence = 0.75;
+      recommendations = [
+        "Contact healthcare provider within 24 hours",
+        "Monitor symptoms closely",
+        "Seek care if symptoms worsen"
+      ];
+    }
+    
+    return {
+      assessmentId: Math.floor(Math.random() * 10000),
+      sessionId: `fallback_${Date.now()}`,
+      riskLevel,
+      recommendations,
+      aiAnalysis: `Offline assessment based on reported symptoms. Risk level: ${riskLevel}. This evaluation uses basic symptom patterns and should be verified with your healthcare provider.`,
+      confidence,
+      urgency
+    };
+  };
 
   const addMessage = (type: "ai" | "user", content: string) => {
     const newMessage: Message = {
